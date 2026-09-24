@@ -3,239 +3,422 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DevStore — the app store for developer tools on Windows</title>
+    <title>DevStore — every dev tool, one honest install</title>
     <meta
       name="description"
-      content="Find the developer tool you need, see where it comes from, and install it with one clear action. Free for Windows 10 and 11."
+      content="DevStore is a free app store for developer tools on Windows. Search 60+ tools, read the plan, install with one clear action."
     />
-    <meta property="og:title" content="DevStore — the app store for developer tools" />
+    <meta name="theme-color" content="#06080c" />
+    <meta property="og:title" content="DevStore — every dev tool, one honest install" />
     <meta
       property="og:description"
-      content="Install Node.js, Python, Git, Docker, PostgreSQL, and 60+ more tools on Windows — with a clear plan before anything runs."
+      content="Install Node.js, Python, Git, Docker, and 60+ more tools on Windows — with a clear plan before anything runs."
     />
-    <meta property="og:image" content="assets/install-plan.png" />
+    <meta property="og:image" content="assets/home.png" />
     <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link
+      rel="preload"
+      href="assets/fonts/jetbrains-mono-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/inter-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="style.css" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
   </head>
   <body>
-    <header class="nav">
-      <div class="wrap nav-inner">
-        <a class="brand" href="#top" aria-label="DevStore home">
-          <img src="assets/icon.svg" alt="" width="32" height="32" />
-          <span>DevStore</span>
-        </a>
-        <nav aria-label="Main">
-          <a href="#features">Features</a>
-          <a href="#install">Install</a>
-          <a href="#faq">FAQ</a>
-          <a
-            class="btn btn-small"
-            href="https://github.com/THRISHAL12345/devstore-app/releases/latest/download/DevStore-Setup-x64.exe"
-            data-download
-            >Download</a
-          >
-        </nav>
-      </div>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+    <canvas id="rain" aria-hidden="true"></canvas>
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="cursor" aria-hidden="true">
+      <span class="cursor-dot"></span><span class="cursor-ring"></span>
+    </div>
+
+    <header class="nav" id="nav">
+      <a class="brand" href="#top" aria-label="DevStore home">
+        <img src="assets/icon.svg" alt="" width="28" height="28" />
+        <span>devstore<b class="caret-blink">_</b></span>
+      </a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="#demo">Try it</a>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <button class="kbd-hint" type="button" data-open-palette aria-label="Open command palette">
+        <span>Search</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      </button>
+      <a
+        class="btn-nav magnetic"
+        href="https://github.com/THRISHAL12345/devstore-app/releases/latest/download/DevStore-Setup-x64.exe"
+        data-download
+        >Download</a
+      >
     </header>
 
-    <main id="top">
-      <section class="hero">
-        <div class="wrap hero-inner">
-          <p class="eyebrow">Free · Windows 10 &amp; 11</p>
-          <h1>Every developer tool.<br />One honest installer.</h1>
-          <p class="lead">
-            Find the tool you need, see exactly where it comes from, and install it with one clear
-            action. No more hunting across websites and installers.
-          </p>
-          <div class="cta">
-            <a
-              class="btn btn-large"
-              href="https://github.com/THRISHAL12345/devstore-app/releases/latest/download/DevStore-Setup-x64.exe"
-              data-download
+    <main id="main">
+      <!-- hero -->
+      <section class="hero" id="top">
+        <a
+          class="eyebrow reveal"
+          id="eyebrow"
+          href="https://github.com/THRISHAL12345/devstore-app/releases/latest"
+        >
+          <span class="pill">new</span>
+          <span id="eyebrow-text">v0.1.1 — the Terminal Noir update</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <h1 class="hero-title">
+          <span class="line"><span class="reveal-up">Every dev tool.</span></span>
+          <span class="line">
+            <span class="reveal-up"
+              >One honest <span class="scramble grad" id="scramble">install</span
+              ><span class="dot">.</span></span
             >
-              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          </span>
+        </h1>
+        <p class="lead reveal">
+          DevStore is a free app store for developer tools on Windows. Search the catalog, read the
+          plan, press enter. It shows the source, version, installer host, and hash
+          <em>before</em> anything touches your machine.
+        </p>
+        <div class="cta reveal">
+          <a
+            class="btn-download magnetic"
+            href="https://github.com/THRISHAL12345/devstore-app/releases/latest/download/DevStore-Setup-x64.exe"
+            data-download
+          >
+            <span class="btn-download-inner">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
                 <path
                   fill="currentColor"
                   d="M3 5.5 10 4.5v7H3zM11 4.4 21 3v8.5H11zM3 12.5h7v7l-7-1zM11 12.5h10V21l-10-1.4z"
                 />
               </svg>
               Download for Windows
-            </a>
-            <p class="release-meta" id="release-meta">
-              Latest version · x64 · installs without admin rights
-            </p>
-            <a
-              class="subtle-link"
-              id="release-notes"
-              href="https://github.com/THRISHAL12345/devstore-app/releases/latest"
-              >What's new</a
-            >
+            </span>
+          </a>
+          <a class="btn-ghost magnetic" href="#demo"
+            >Try it in your browser <span aria-hidden="true">↓</span></a
+          >
+        </div>
+        <p class="meta reveal" id="release-meta">
+          Free · Windows 10 &amp; 11 · x64 · installs without admin rights
+        </p>
+
+        <div class="stage-wrap">
+          <div class="stage" id="stage">
+            <div class="stage-glow" aria-hidden="true"></div>
+            <div class="stage-frame">
+              <img
+                src="assets/home.png"
+                alt="The DevStore app: a live terminal, catalog stats, and categories in a dark neon interface"
+                width="1280"
+                height="860"
+              />
+            </div>
           </div>
-          <figure class="hero-shot">
-            <img
-              src="assets/home.png"
-              alt="DevStore home screen with a live terminal, catalog stats, and categories"
-              width="1280"
-              height="860"
-            />
-          </figure>
         </div>
       </section>
 
+      <!-- metrics -->
+      <section class="metrics" aria-label="DevStore in numbers">
+        <div class="metric reveal">
+          <strong><span data-count="tools">64</span></strong
+          ><span>curated developer tools</span>
+        </div>
+        <div class="metric reveal">
+          <strong><span data-count="official">53</span></strong
+          ><span>with recorded official download hosts</span>
+        </div>
+        <div class="metric reveal">
+          <strong><span data-count="recipes">7</span></strong
+          ><span>ready-made environments</span>
+        </div>
+        <div class="metric reveal">
+          <strong><span data-count="zero">0</span></strong
+          ><span>admin prompts to install DevStore</span>
+        </div>
+      </section>
+
+      <!-- belt -->
+      <section class="belt" aria-label="Some of the tools in the catalog">
+        <div class="belt-row" id="belt-a"></div>
+        <div class="belt-row reverse" id="belt-b"></div>
+      </section>
+
+      <!-- demo -->
+      <section class="section demo" id="demo">
+        <div class="section-head reveal">
+          <p class="kicker"><span>01</span> // live demo</p>
+          <h2>Don't take our word for it.<br /><span class="grad">Type something.</span></h2>
+          <p class="sub">
+            A DevStore shell running in your browser, on the real catalog. Nothing is installed.
+          </p>
+          <div class="chips">
+            <button class="chip" type="button" data-cmd="search redis">search redis</button>
+            <button class="chip" type="button" data-cmd="install nodejs-lts">
+              install nodejs-lts
+            </button>
+            <button class="chip" type="button" data-cmd="alternatives postman">
+              alternatives postman
+            </button>
+            <button class="chip" type="button" data-cmd="envs">envs</button>
+            <button class="chip" type="button" data-cmd="doctor">doctor</button>
+            <button class="chip" type="button" data-cmd="help">help</button>
+          </div>
+        </div>
+        <div class="term reveal" id="term">
+          <div class="term-bar">
+            <i></i><i></i><i></i>
+            <span>devstore — pwsh — demo</span>
+            <span class="term-badge">sandbox · nothing runs</span>
+          </div>
+          <div
+            class="term-body"
+            id="term-body"
+            role="log"
+            aria-live="polite"
+            aria-label="Demo terminal output"
+          ></div>
+          <form class="term-input" id="term-form" autocomplete="off">
+            <label for="term-in" class="ps">PS C:\dev&gt;</label>
+            <input
+              id="term-in"
+              type="text"
+              spellcheck="false"
+              aria-label="Type a DevStore command"
+              placeholder="type help and press Enter"
+            />
+          </form>
+        </div>
+      </section>
+
+      <!-- features -->
       <section class="section" id="features">
-        <div class="wrap">
-          <h2>Built for developers who like to know what's happening</h2>
-          <div class="features">
-            <article>
-              <h3>🔎 Search that explains itself</h3>
+        <div class="section-head reveal">
+          <p class="kicker"><span>02</span> // features</p>
+          <h2>Built for developers who<br /><span class="grad">read the diff first.</span></h2>
+        </div>
+        <div class="bento">
+          <article class="card tilt span-2 reveal">
+            <div class="card-copy">
+              <span class="card-tag">install-plan</span>
+              <h3>A plan before every install</h3>
               <p>
-                Search by name, tag, or category, or ask for “redis alternatives”. Every result
-                tells you why it matched.
+                Package, version, installer host, SHA-256, license terms, and whether an admin
+                prompt may appear. You decide. Then DevStore runs exactly that plan, nothing else.
               </p>
-            </article>
-            <article>
-              <h3>📋 A plan before every install</h3>
+            </div>
+            <div class="mini-plan" aria-hidden="true">
+              <div class="mp-row"><span>source</span><b>winget · Git.Git</b></div>
+              <div class="mp-row"><span>version</span><b>2.51.0</b></div>
+              <div class="mp-row"><span>host</span><b>github.com</b></div>
+              <div class="mp-row"><span>sha256</span><b class="hash" id="mini-hash">…</b></div>
+              <div class="mp-row ok"><span>trust</span><b>✓ official source</b></div>
+              <div class="mp-btn">Install</div>
+            </div>
+          </article>
+          <article class="card tilt reveal">
+            <div class="card-copy">
+              <span class="card-tag">ctrl+k</span>
+              <h3>Keyboard first</h3>
+              <p>A command palette for every tool and page. Try it here: press Ctrl+K.</p>
+            </div>
+            <div class="mini-palette" aria-hidden="true">
+              <div class="mpal-in"><span>❯</span><span class="typing" id="mini-typing"></span></div>
+              <div class="mpal-item on">Python 3.14</div>
+              <div class="mpal-item">uv</div>
+              <div class="mpal-item">Ruff</div>
+            </div>
+          </article>
+          <article class="card tilt reveal">
+            <div class="card-copy">
+              <span class="card-tag">doctor</span>
+              <h3>Environment Doctor</h3>
               <p>
-                See the package, version, installer host, SHA-256 hash, license terms, and whether
-                an admin prompt may appear — then decide.
+                Finds the old Java shadowing your JDK, or four Pythons fighting on PATH, and
+                explains it without changing a thing.
               </p>
-            </article>
-            <article>
-              <h3>🛡️ Trust labels you can check</h3>
+            </div>
+            <div class="mini-doctor" aria-hidden="true">
+              <div class="md-row warn">⚠ java → an older JRE comes first on PATH</div>
+              <div class="md-row warn">⚠ 4 copies of python on PATH</div>
+              <div class="md-row ok">✓ nothing executed · nothing changed</div>
+            </div>
+          </article>
+          <article class="card tilt reveal">
+            <div class="card-copy">
+              <span class="card-tag">trust</span>
+              <h3>Honest labels</h3>
               <p>
-                “Official source” needs recorded evidence and is re-checked against the live
-                download. No fake ratings, no “best” badges.
+                "Official source" needs recorded evidence and is re-checked. No fake ratings, no
+                "best" badges, licenses only with a source.
               </p>
-            </article>
-            <article>
-              <h3>📦 My Tools &amp; Updates</h3>
+            </div>
+            <div class="badges" aria-hidden="true">
+              <span class="b ok">✓ official source</span><span class="b">review pending</span
+              ><span class="b">MIT</span><span class="b ok">OSI-approved</span
+              ><span class="b warn">not native on Windows</span>
+            </div>
+          </article>
+          <article class="card tilt reveal">
+            <div class="card-copy">
+              <span class="card-tag">recipes</span>
+              <h3>Environments in one go</h3>
+              <p>Pick a stack, review the whole plan once, install it all.</p>
+            </div>
+            <div class="envs" aria-hidden="true" id="env-chips"></div>
+          </article>
+          <article class="card tilt reveal">
+            <div class="card-copy">
+              <span class="card-tag">github</span>
+              <h3>Discover on GitHub</h3>
+              <p>Look up any repo and see which release assets actually run on Windows.</p>
+            </div>
+            <div class="mini-doctor" aria-hidden="true">
+              <div class="md-row ok">✓ tool-windows-x64.zip</div>
+              <div class="md-row ok">✓ tool-setup-arm64.exe</div>
+              <div class="md-row dim">✗ tool-darwin-arm64.tar.gz</div>
+              <div class="md-row dim">✗ tool-linux-amd64.tar.gz</div>
+            </div>
+          </article>
+          <article class="card tilt span-2 reveal">
+            <div class="card-copy">
+              <span class="card-tag">self-update</span>
+              <h3>Keeps itself up to date, signed</h3>
               <p>
-                See what's installed and what's out of date, and update one tool or everything at
-                once, with a result for each.
+                DevStore checks for a new version at launch and installs it only when you click.
+                Every update is cryptographically signed; anything that doesn't match is refused.
               </p>
-            </article>
-            <article>
-              <h3>🧰 Ready-made environments</h3>
-              <p>
-                Starter setups for React, Python, AI/ML, Go, DevOps, Rust, and data science. Pick
-                what you need and install it in one go.
-              </p>
-            </article>
-            <article>
-              <h3>🩺 Environment Doctor</h3>
-              <p>
-                Finds PATH problems — like an old Java hiding your new JDK — and explains them
-                without changing anything.
-              </p>
-            </article>
+            </div>
+            <div class="mini-update" aria-hidden="true">
+              <div class="mu-line"><span class="ok">✓</span> signature verified</div>
+              <div class="mu-bar"><span></span></div>
+              <div class="mu-line dim">
+                devstore <span id="mu-from">0.1.0</span> → <b id="mu-version">0.1.1</b>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- how it works -->
+      <section class="section how" id="how">
+        <div class="section-head reveal">
+          <p class="kicker"><span>03</span> // how it works</p>
+          <h2>Three steps.<br /><span class="grad">Zero surprises.</span></h2>
+        </div>
+        <div class="how-grid">
+          <div class="how-sticky" aria-hidden="true">
+            <div class="how-screen">
+              <div class="how-bar"><i></i><i></i><i></i><span id="how-path">~/search</span></div>
+              <div class="how-imgs">
+                <img
+                  class="how-img active"
+                  data-step="0"
+                  src="assets/command-palette.png"
+                  alt=""
+                  loading="lazy"
+                />
+                <img
+                  class="how-img"
+                  data-step="1"
+                  src="assets/install-plan.png"
+                  alt=""
+                  loading="lazy"
+                />
+                <img
+                  class="how-img"
+                  data-step="2"
+                  src="assets/environment.png"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <section class="section alt">
-        <div class="wrap shots">
-          <figure>
-            <img
-              src="assets/install-plan.png"
-              alt="An install plan showing version, publisher, installer host, SHA-256 hash, and what you agree to"
-              loading="lazy"
-              width="1280"
-              height="860"
-            />
-            <figcaption>
-              A clear plan before every install — source, version, host, and hash.
-            </figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/command-palette.png"
-              alt="The DevStore command palette searching for Python tools"
-              loading="lazy"
-              width="1280"
-              height="860"
-            />
-            <figcaption>Press Ctrl+K to jump to any tool or page.</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/explore-alternatives.png"
-              alt="Searching for Redis alternatives in DevStore"
-              loading="lazy"
-              width="1280"
-              height="860"
-            />
-            <figcaption>
-              Compare alternatives — with honest notes on Windows support and licenses.
-            </figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/environment.png"
-              alt="The React web development environment in DevStore"
-              loading="lazy"
-              width="1280"
-              height="860"
-            />
-            <figcaption>Set up a whole environment and see progress for every tool.</figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section class="section" id="install">
-        <div class="wrap">
-          <h2>Install in under a minute</h2>
-          <ol class="steps">
-            <li>
-              <span class="step-num">1</span>
-              <h3>Download</h3>
+          <ol class="how-steps">
+            <li class="how-step active" data-step="0" data-path="~/search">
+              <span class="step-n">01</span>
+              <h3>Search</h3>
               <p>
-                Click <strong>Download for Windows</strong>. You get a small installer (about
-                2&nbsp;MB).
+                Type a name, a tag, or "alternatives to redis". Results explain why they match, and
+                say plainly when a tool doesn't run natively on Windows.
               </p>
+              <img class="how-inline" src="assets/command-palette.png" alt="" loading="lazy" />
             </li>
-            <li>
-              <span class="step-num">2</span>
-              <h3>Open it</h3>
+            <li class="how-step" data-step="1" data-path="~/plan">
+              <span class="step-n">02</span>
+              <h3>Read the plan</h3>
               <p>
-                Open the downloaded file. DevStore installs for your account only — no administrator
-                prompt.
+                See exactly what will run: the WinGet package, version, installer host, hash,
+                license terms, and the exact command. Nothing hidden, nothing silent.
               </p>
+              <img class="how-inline" src="assets/install-plan.png" alt="" loading="lazy" />
             </li>
-            <li>
-              <span class="step-num">3</span>
-              <h3>Done</h3>
+            <li class="how-step" data-step="2" data-path="~/verify">
+              <span class="step-n">03</span>
+              <h3>Install &amp; verify</h3>
               <p>
-                DevStore opens and shows which of your tools are installed and which have updates.
+                DevStore runs the plan, streams the log, then checks the tool is really there.
+                Partial results are reported as partial, never as success.
               </p>
+              <img class="how-inline" src="assets/environment.png" alt="" loading="lazy" />
             </li>
           </ol>
-          <div class="note">
-            <strong>Seeing “Windows protected your PC”?</strong> DevStore's installer isn't
-            code-signed yet, so Windows SmartScreen shows a warning for new apps. Choose
-            <em>More info → Run anyway</em>. Each release lists the installer's SHA-256 checksum so
-            you can verify the download.
-          </div>
         </div>
       </section>
 
-      <section class="section alt">
-        <div class="wrap update-row">
-          <div>
-            <h2>Keeps itself up to date</h2>
-            <p>
-              DevStore checks for new versions when it starts. When one is ready, it tells you
-              what's new and installs it after you click <strong>Install and restart</strong>. Every
-              update is cryptographically signed — DevStore refuses updates that don't match the
-              signature.
-            </p>
+      <!-- install -->
+      <section class="section" id="install">
+        <div class="section-head reveal">
+          <p class="kicker"><span>04</span> // install</p>
+          <h2>Up and running<br /><span class="grad">in under a minute.</span></h2>
+        </div>
+        <div class="steps">
+          <div class="step tilt reveal">
+            <span class="step-big">1</span>
+            <h3>Download</h3>
+            <p>One small installer, about 3&nbsp;MB.</p>
+          </div>
+          <div class="step tilt reveal">
+            <span class="step-big">2</span>
+            <h3>Open it</h3>
+            <p>Installs for your account only. No administrator prompt.</p>
+          </div>
+          <div class="step tilt reveal">
+            <span class="step-big">3</span>
+            <h3>Done</h3>
+            <p>DevStore opens and shows what's installed and what's outdated.</p>
           </div>
         </div>
+        <p class="note reveal">
+          <strong>Seeing "Windows protected your PC"?</strong> The installer isn't code-signed yet,
+          so SmartScreen warns about new apps. Choose <em>More info → Run anyway</em>. Every release
+          lists the installer's SHA-256 checksum.
+        </p>
       </section>
 
-      <section class="section" id="faq">
-        <div class="wrap faq">
-          <h2>Questions</h2>
-          <details>
+      <!-- faq -->
+      <section class="section faq" id="faq">
+        <div class="section-head reveal">
+          <p class="kicker"><span>05</span> // faq</p>
+          <h2>Questions, <span class="grad">answered.</span></h2>
+        </div>
+        <div class="faq-list">
+          <details class="reveal">
             <summary>Where do the tools come from?</summary>
             <p>
               From WinGet, Microsoft's package manager built into Windows 10 and 11. DevStore shows
@@ -243,56 +426,106 @@
               each installer's hash against its manifest.
             </p>
           </details>
-          <details>
+          <details class="reveal">
             <summary>Does DevStore need administrator rights?</summary>
             <p>
               No. DevStore installs and runs as your user. Some tools' own installers ask for admin
-              rights through a normal Windows prompt, and the install plan tells you when that may
-              happen. You can always decline.
+              rights through a normal Windows prompt. The plan tells you when that may happen, and
+              you can always decline.
             </p>
           </details>
-          <details>
+          <details class="reveal">
             <summary>Will it change tools I already installed?</summary>
             <p>
               Only when you choose to update or uninstall them, and the plan warns you when a tool
               wasn't installed through DevStore.
             </p>
           </details>
-          <details>
-            <summary>What does DevStore collect about me?</summary>
+          <details class="reveal">
+            <summary>How does DevStore update itself?</summary>
             <p>
-              Nothing. There is no account and no telemetry. DevStore only contacts GitHub to check
-              for its own updates (you can turn that off in Settings) and when you ask for GitHub
-              details.
+              At launch it checks for a newer release and shows a card in Settings. Click Install
+              and it downloads the update, verifies its signature, and restarts. You can turn the
+              check off.
             </p>
           </details>
-          <details>
+          <details class="reveal">
+            <summary>What does DevStore collect about me?</summary>
+            <p>
+              Nothing. No account, no telemetry. It only contacts GitHub to check for its own
+              updates (you can turn that off) and when you ask for GitHub details.
+            </p>
+          </details>
+          <details class="reveal">
             <summary>What do I need?</summary>
             <p>
-              Windows 10 or 11 on an x64 PC. WinGet (the “App Installer” app) is needed to install
+              Windows 10 or 11 on an x64 PC. WinGet (the "App Installer" app) is needed to install
               tools; it's preinstalled on current Windows versions.
             </p>
           </details>
-          <details>
+          <details class="reveal">
             <summary>How do I uninstall DevStore?</summary>
             <p>
-              Open Windows Settings → Apps → Installed apps, find DevStore, and choose Uninstall.
-              Tools you installed with DevStore stay installed.
+              Windows Settings → Apps → Installed apps → DevStore → Uninstall. Tools you installed
+              with DevStore stay installed.
             </p>
           </details>
         </div>
       </section>
+
+      <!-- final cta -->
+      <section class="final" id="download">
+        <div class="final-glow" aria-hidden="true"></div>
+        <p class="kicker reveal">// ready when you are</p>
+        <h2 class="final-title reveal">
+          Stop hunting.<br /><span class="grad">Start building.</span>
+        </h2>
+        <a
+          class="btn-download big magnetic reveal"
+          href="https://github.com/THRISHAL12345/devstore-app/releases/latest/download/DevStore-Setup-x64.exe"
+          data-download
+        >
+          <span class="btn-download-inner">Download DevStore for Windows</span>
+        </a>
+        <p class="meta reveal" id="release-meta-2">Free · no account · no telemetry</p>
+      </section>
     </main>
 
     <footer class="footer">
-      <div class="wrap footer-inner">
-        <span>DevStore is a preview release. Feedback and bug reports are welcome.</span>
+      <div class="footer-mark" aria-hidden="true">DEVSTORE</div>
+      <div class="footer-row">
+        <span>DevStore is a preview release, made for Windows developers.</span>
         <nav aria-label="Footer">
-          <a href="https://github.com/THRISHAL12345/devstore-app/releases">All releases</a>
+          <a href="https://github.com/THRISHAL12345/devstore-app/releases">Releases</a>
           <a href="https://github.com/THRISHAL12345/devstore-app/issues">Report a problem</a>
+          <a href="#top">Back to top ↑</a>
         </nav>
       </div>
     </footer>
+
+    <div class="palette-backdrop" id="palette" hidden>
+      <div class="palette" role="dialog" aria-modal="true" aria-label="Command palette">
+        <div class="palette-in">
+          <span aria-hidden="true">❯</span>
+          <input
+            id="palette-in"
+            type="text"
+            spellcheck="false"
+            placeholder="Search tools and sections…"
+            role="combobox"
+            aria-expanded="true"
+            aria-controls="palette-list"
+          />
+          <kbd>esc</kbd>
+        </div>
+        <ul id="palette-list" role="listbox"></ul>
+        <div class="palette-foot" aria-hidden="true">
+          <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>enter</kbd> open</span
+          ><span><kbd>esc</kbd> close</span>
+        </div>
+      </div>
+    </div>
+
     <script src="app.js" defer></script>
   </body>
 </html>
