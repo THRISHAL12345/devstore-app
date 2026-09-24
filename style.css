@@ -1,0 +1,378 @@
+:root {
+  --bg: #f7f7f9;
+  --surface: #ffffff;
+  --alt: #eef1f8;
+  --text: #16181d;
+  --muted: #555b66;
+  --border: #e3e5ea;
+  --accent: #3b5bdb;
+  --accent-2: #7c3aed;
+  --on-accent: #ffffff;
+  --radius: 14px;
+  color-scheme: light dark;
+  font-family:
+    "Segoe UI Variable Text",
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  line-height: 1.55;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111317;
+    --surface: #1a1d23;
+    --alt: #161a22;
+    --text: #f2f3f5;
+    --muted: #a9afbb;
+    --border: #2b2f38;
+    --accent: #7b93ff;
+    --accent-2: #a78bfa;
+    --on-accent: #0d0f14;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--accent);
+}
+
+.wrap {
+  width: min(1120px, 100% - 40px);
+  margin-inline: auto;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+p {
+  margin: 0 0 12px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* nav */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.nav nav a:not(.btn) {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.nav nav a:not(.btn):hover {
+  color: var(--text);
+}
+
+/* buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--on-accent);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 999px;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.btn-small {
+  padding: 8px 18px;
+}
+
+.btn-large {
+  padding: 16px 30px;
+  font-size: 1.15rem;
+}
+
+/* hero */
+.hero {
+  padding: 72px 0 40px;
+  background:
+    radial-gradient(
+      60% 50% at 85% 0%,
+      color-mix(in srgb, var(--accent-2) 18%, transparent),
+      transparent
+    ),
+    radial-gradient(
+      50% 40% at 10% 20%,
+      color-mix(in srgb, var(--accent) 16%, transparent),
+      transparent
+    );
+}
+
+.hero-inner {
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.lead {
+  font-size: 1.2rem;
+  color: var(--muted);
+  max-width: 640px;
+  margin: 0 auto 28px;
+}
+
+.cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.release-meta {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.subtle-link {
+  font-size: 0.95rem;
+}
+
+.hero-shot {
+  margin: 48px auto 0;
+  max-width: 1000px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 80px rgb(0 0 0 / 25%);
+}
+
+/* sections */
+.section {
+  padding: 72px 0;
+}
+
+.section.alt {
+  background: var(--alt);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.features article {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+
+.features p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 24px;
+}
+
+.shots figure {
+  margin: 0;
+}
+
+.shots img {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.shots figcaption {
+  color: var(--muted);
+  margin-top: 10px;
+  text-align: center;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.steps li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+
+.steps p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.step-num {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--on-accent);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.note {
+  border-left: 4px solid var(--accent);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 16px 20px;
+  color: var(--muted);
+}
+
+.note strong {
+  color: var(--text);
+}
+
+.update-row p {
+  color: var(--muted);
+  max-width: 760px;
+  font-size: 1.05rem;
+}
+
+.faq details {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+}
+
+.faq summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.faq details p {
+  color: var(--muted);
+  margin: 10px 0 0;
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.footer nav {
+  display: flex;
+  gap: 18px;
+}
+
+@media (max-width: 640px) {
+  .nav nav a:not(.btn) {
+    display: none;
+  }
+  .shots {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
