@@ -660,6 +660,16 @@ kbd {
   color: #051006;
   background: var(--grad);
 }
+.belt-item .glyph.logo {
+  width: 26px;
+  height: 26px;
+  background: #1b2130;
+  border: 1px solid var(--line-2);
+}
+.belt-item .glyph.logo img {
+  width: 16px;
+  height: 16px;
+}
 
 /* ---------------------------------------------------------------- sections */
 

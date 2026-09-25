@@ -328,8 +328,15 @@
       a.type = "button";
       a.className = "belt-item";
       const g = document.createElement("span");
-      g.className = "glyph";
-      g.textContent = t.name.replace(/[^A-Za-z0-9]/g, "").slice(0, 2);
+      g.className = t.icon ? "glyph logo" : "glyph";
+      if (t.icon) {
+        const img = document.createElement("img");
+        img.src = `assets/brands/${t.id}.svg`;
+        img.alt = "";
+        g.append(img);
+      } else {
+        g.textContent = t.name.replace(/[^A-Za-z0-9]/g, "").slice(0, 2);
+      }
       const name = document.createElement("span");
       name.textContent = t.name;
       const small = document.createElement("small");
